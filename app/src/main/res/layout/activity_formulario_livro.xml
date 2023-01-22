@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.FormularioLivroActivity"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/activities_formulario_livro_nome_livro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:inputType="textCapWords"
+        android:hint="@string/nome_do_livro" />
+
+    <EditText
+        android:id="@+id/activities_formulario_livro_autor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:inputType="textCapWords"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="70dp"
+        android:hint="Autor" />
+
+    <EditText
+        android:id="@+id/activities_formulario_livro_quantidade_paginas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:inputType="number"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="120dp"
+        android:hint="@string/quantidade_p_ginas" />
+
+    <EditText
+        android:id="@+id/activities_formulario_livro_data_finalizado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="@string/data_de_finaliza_o_dd_mm_yyyy"
+        android:digits="0123456789/"
+        android:layout_marginTop="170dp"
+        android:ems="10"
+        android:inputType="date|text" />
+
+    <Button
+        android:id="@+id/activities_formulario_livro_button_salvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/salvar" />
+
+
+</RelativeLayout>

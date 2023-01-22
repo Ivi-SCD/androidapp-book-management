@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Agenda</string>
+    <string name="data_de_finaliza_o_dd_mm_yyyy">Data de Finalização (dd/MM/yyyy)</string>
+    <string name="quantidade_p_ginas">Quantidade Páginas</string>
+    <string name="nome_do_livro">Nome do Livro</string>
+    <string name="salvar">Salvar</string>
+</resources>
