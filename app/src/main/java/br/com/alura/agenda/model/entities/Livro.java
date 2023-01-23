@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +13,7 @@ public class Livro implements Parcelable {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
+    private Integer id;
     private String nome;
     private String autor;
     private Integer quantidadePaginas;
@@ -29,17 +29,11 @@ public class Livro implements Parcelable {
     }
 
     protected Livro(Parcel in) {
-
+        id = in.readInt();
         nome = in.readString();
         autor = in.readString();
         quantidadePaginas = in.readInt();
         dataFinalizacao = new Date(in.readLong());
-
-        if (in.readByte() == 0) {
-            quantidadePaginas = null;
-        } else {
-            quantidadePaginas = in.readInt();
-        }
     }
 
     public static final Creator<Livro> CREATOR = new Creator<Livro>() {
@@ -94,6 +88,14 @@ public class Livro implements Parcelable {
         this.dataFinalizacao = sdf.parse(data);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -107,6 +109,7 @@ public class Livro implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(nome);
         parcel.writeString(autor);
         parcel.writeInt(quantidadePaginas);
