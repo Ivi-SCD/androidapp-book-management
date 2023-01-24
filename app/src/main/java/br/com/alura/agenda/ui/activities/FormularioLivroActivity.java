@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -98,40 +99,77 @@ public class FormularioLivroActivity extends AppCompatActivity {
         return livro;
     }
 
-    private void configuraBotaoSalvar() {
-        botaoSalvar = findViewById(R.id.activities_formulario_livro_button_salvar);
-        Livro livroSerializado = verificaDadosSerializados();
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//    private void configuraBotaoSalvar() {
+//        botaoSalvar = findViewById(R.id.activities_formulario_livro_button_salvar);
+//        Livro livroSerializado = verificaDadosSerializados();
+//        botaoSalvar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (validar()) {
+//                    try {
+//                        Livro livroInputCampos = criaLivro();
+//                        if (livroSerializado == null) {
+//                            dao.salvar(livroInputCampos);
+//                        } else {
+//                            livroInputCampos.setId(livroSerializado.getId());
+//                            dao.editar(livroInputCampos);
+//                        }
+//                        finish();
+//                    } catch (ParseException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//            }
+//        });
+//    }
 
-                if (validar()) {
-                    try {
-                        Livro livroInputCampos = criaLivro();
-                        if (livroSerializado == null) {
-                            dao.salvar(livroInputCampos);
-                        } else {
-                            livroInputCampos.setId(livroSerializado.getId());
-                            dao.editar(livroInputCampos);
-                        }
-                        finish();
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+    private void salvarFormulario() throws ParseException {
+        Livro livroSerializado = verificaDadosSerializados();
+
+        if(validar()) {
+            Livro livroInputCampos = criaLivro();
+            if(livroSerializado == null) {
+                dao.salvar(livroInputCampos);
+                Toast.makeText(this, livroInputCampos.getNome() + " foi salvo na sua biblioteca.", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                livroInputCampos.setId(livroSerializado.getId());
+                dao.editar(livroInputCampos);
+                finish();
             }
-        });
+        }
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_formulario_livro);
+        setContentView(R.layout.activities_formulario_livro);
         setTitle(TITLE_APPBAR);
-
         inicializar();
-        configuraBotaoSalvar();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.activities_formulario_livro_menu_salvar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.activities_lista_livros_menu_salvar) {
+            try {
+                System.out.println("Clicou aqui.");
+                salvarFormulario();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

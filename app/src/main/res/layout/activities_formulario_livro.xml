@@ -49,14 +49,5 @@
         android:ems="10"
         android:inputType="date|text" />
 
-    <Button
-        android:id="@+id/activities_formulario_livro_button_salvar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="220dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/salvar" />
-
 
 </RelativeLayout>

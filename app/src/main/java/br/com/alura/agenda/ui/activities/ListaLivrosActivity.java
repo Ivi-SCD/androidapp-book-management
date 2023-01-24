@@ -2,12 +2,14 @@ package br.com.alura.agenda.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +32,7 @@ public class ListaLivrosActivity extends AppCompatActivity {
         listaLivros = dao.selecionar();
         ListView listaView = findViewById(R.id.activities_lista_livros_lista_de_livros);
         listaView.setAdapter(adapter);
+        registerForContextMenu(listaView);
         listaView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -37,16 +40,6 @@ public class ListaLivrosActivity extends AppCompatActivity {
                 Intent irParaFormulario = new Intent(new Intent(ListaLivrosActivity.this, FormularioLivroActivity.class));
                 irParaFormulario.putExtra("livro", livroSelecionado);
                 startActivity(irParaFormulario);
-            }
-        });
-
-        listaView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Livro livroSelecionado = listaLivros.get(i);
-                dao.remover(livroSelecionado);
-                adapter.remove(livroSelecionado);
-                return true;
             }
         });
     }
@@ -66,17 +59,33 @@ public class ListaLivrosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setTitle(TITLE_APPBAR);
-        setContentView(R.layout.activity_lista_livros);
+        setContentView(R.layout.activities_lista_livros);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dao.selecionar());
-
-        try {
-            dao.salvar(new Livro("XD","DX",233,"11/12/2003"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
 
         adapter.addAll(dao.selecionar());
         configuraFloatingButton();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.activities_lista_livros_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+
+        CharSequence tituloMenu = item.getTitle();
+        int itemId = item.getItemId();
+
+        if(itemId == R.id.activities_lista_livros_menu_remover) {
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Livro livroEscolhido = adapter.getItem(menuInfo.position);
+            adapter.remove(livroEscolhido);
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     @Override

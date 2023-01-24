@@ -4,4 +4,5 @@
     <string name="quantidade_p_ginas">Quantidade Páginas</string>
     <string name="nome_do_livro">Nome do Livro</string>
     <string name="salvar">Salvar</string>
+    <string name="remover">Remover</string>
 </resources>
